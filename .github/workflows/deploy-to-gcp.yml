@@ -1,0 +1,49 @@
+name: Deploy to GCP
+
+on:
+  push:
+    branches:
+      - main # Change this to your main branch name
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Setup Google Cloud SDK
+      uses: GoogleCloudPlatform/github-actions/setup-gcloud@v0.3.0
+      with:
+        project_id: ${{ secrets.GCP_PROJECT_ID }}
+        service_account_key: ${{ secrets.GCP_SA_KEY }}
+        export_default_credentials: true
+
+    - name: Create GCP Bucket if it doesn't exist
+      run: |
+        BUCKET_NAME="tatenda-magaisa-site"
+
+        # Check if the bucket already exists
+        if ! gsutil ls "gs://${BUCKET_NAME}"; then
+          # Create the bucket if it doesn't exist
+          gsutil mb -l us-central1 "gs://${BUCKET_NAME}"
+        fi
+      env:
+        NODE_ENV: production
+
+    - name: Build and deploy
+      run: |
+        # Install dependencies and build your website (you might need to modify this part)
+        npm install
+        npm run build
+
+        # Deploy to Google Cloud Storage
+        gsutil -m rsync -r ./dist gs://tatenda-magaisa-site
+      env:
+        NODE_ENV: production
+
+    - name: Invalidate CDN Cache (if using CDN)
+      run: |
+        # Optional: Invalidate the CDN cache (e.g., for Cloud CDN)
+        # gcloud compute url-maps invalidate-cdn-cache your-url-map-name

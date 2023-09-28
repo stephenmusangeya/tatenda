@@ -1,0 +1,114 @@
+/* Reset some default styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    line-height: 1.6;
+}
+
+header {
+    background-color: #fff;
+    box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    width: 100%;
+    z-index: 100;
+}
+
+nav ul {
+    list-style: none;
+    text-align: center;
+    margin-top: 20px;
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 20px;
+}
+
+nav a {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+}
+
+section {
+    padding: 4rem 0;
+    text-align: center;
+}
+
+h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+p {
+    font-size: 1.2rem;
+    color: #666;
+}
+
+.gallery {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.artwork {
+    margin: 10px;
+    text-align: center;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.1);
+}
+
+.artwork img {
+    max-width: 100%;
+}
+
+/* Additional styles for specific sections */
+#home {
+    background-image: url('background.jpg'); /* Add your background image */
+    background-size: cover;
+    background-position: center;
+    color: #fff;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    padding: 100px 0;
+}
+
+#portfolio {
+    background-color: #fff;
+}
+
+#about {
+    background-color: #f4f4f4;
+}
+
+#contact {
+    background-color: #333;
+    color: #fff;
+}
+
+/* Style links in the navigation bar */
+nav a:hover {
+    color: #007bff;
+}
+
+/* Media queries for responsive design */
+@media (max-width: 768px) {
+    nav ul {
+        margin-top: 0;
+    }
+
+    nav ul li {
+        display: block;
+        margin-bottom: 10px;
+    }
+}
