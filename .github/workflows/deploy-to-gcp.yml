@@ -13,12 +13,13 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Setup Google Cloud SDK
-      uses: GoogleCloudPlatform/github-actions/setup-gcloud@v0.3.0
+    - id: 'auth'
+      uses: 'google-github-actions/auth@v1'
       with:
-        project_id: ${{ secrets.GCP_PROJECT_ID }}
-        service_account_key: ${{ secrets.GCP_SA_KEY }}
-        export_default_credentials: true
+        credentials_json: '${{ secrets.GCP_SA_KEY }}'
+
+    - name: Setup Google Cloud SDK
+      uses: 'google-github-actions/setup-gcloud@v1'
 
     - name: Create GCP Bucket if it doesn't exist
       run: |
