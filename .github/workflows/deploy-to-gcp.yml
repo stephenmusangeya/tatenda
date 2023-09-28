@@ -35,16 +35,5 @@ jobs:
 
     - name: Build and deploy
       run: |
-        # Install dependencies and build your website (you might need to modify this part)
-        npm install
-        npm run build
-
         # Deploy to Google Cloud Storage
-        gsutil -m rsync -r ./dist gs://tatenda_magaisa_site
-      env:
-        NODE_ENV: production
-
-    - name: Invalidate CDN Cache (if using CDN)
-      run: |
-        # Optional: Invalidate the CDN cache (e.g., for Cloud CDN)
-        # gcloud compute url-maps invalidate-cdn-cache your-url-map-name
+        gsutil -m rsync -r ./ gs://tatenda_magaisa_site
