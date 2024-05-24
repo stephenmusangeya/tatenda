@@ -81,6 +81,17 @@ a:hover {
     font-style: italic;
 }
 
+.awards {
+    padding: 20px; /* Add some padding */
+    color: #333; /* Change the text color to dark gray */
+}
+
+.awards strong {
+    color: #e07980;
+    font-weight: 700;
+    transition: color 0.3s ease;
+}
+
 .contact h2 {
     text-align: center;
     font-weight: 700;

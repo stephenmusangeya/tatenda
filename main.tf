@@ -65,10 +65,22 @@ resource "google_compute_target_http_proxy" "http_proxy" {
   url_map = google_compute_url_map.url_map.self_link
 }
 
-# Create a global forwarding rule to handle and route incoming requests
+resource "google_compute_managed_ssl_certificate" "managed_ssl" {
+  name = "managed-ssl"
+  managed {
+    domains = ["tatendamagaisa.com"]
+  }
+}
+
+resource "google_compute_target_https_proxy" "https_proxy" {
+  name             = "https-proxy"
+  url_map          = google_compute_url_map.url_map.self_link
+  ssl_certificates = [google_compute_managed_ssl_certificate.managed_ssl.self_link]
+}
+
 resource "google_compute_global_forwarding_rule" "forwarding_rule" {
-  name       = "http-forwarding-rule"
-  target     = google_compute_target_http_proxy.http_proxy.self_link
-  port_range = "80"
+  name       = "https-forwarding-rule"
+  target     = google_compute_target_https_proxy.https_proxy.self_link
+  port_range = "443"
   ip_address = google_compute_global_address.static_ip.address
 }
